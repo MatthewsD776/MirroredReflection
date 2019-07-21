@@ -6,21 +6,23 @@ contract Suggestion is Ownable{
     string public name;
     string public suggestion;
     int256 public voteCount;
+    bool public open;
 
     mapping(address => bool) voted;
 
     event upVoted();
     event downVoted();
-    event ended();
+    event closed();
 
     constructor() public {
+        open = true;
         //suggestion = _suggestion;
     }
 
     modifier canVote() {
-        if(!hasVoted() && !isDead()){
-            _;
-        }
+        require(open, "Suggestion has ended");
+        require(!hasVoted(), "Already Voted");
+        _;
     }
 
     function isDead() private view returns (bool) {
@@ -48,7 +50,8 @@ contract Suggestion is Ownable{
     }
 
     function close() public onlyOwner {
-        selfdestruct(msg.sender);
-        emit ended();
+        open = false;
+        address payable owner = msg.sender;
+        owner.transfer(address(this).balance);
     }
 }
