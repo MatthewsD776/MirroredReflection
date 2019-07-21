@@ -14,9 +14,10 @@ contract Suggestion is Ownable{
     event downVoted();
     event closed();
 
-    constructor() public {
+    constructor(string memory _name, string memory _suggestion) public {
         open = true;
-        //suggestion = _suggestion;
+        name = _name;
+        suggestion = _suggestion;
     }
 
     modifier canVote() {

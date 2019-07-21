@@ -6,7 +6,7 @@ contract("Suggestion", accounts => {
     var instance;
 
     beforeEach(async() => {
-        var suggestion = await Suggestion.new({
+        var suggestion = await Suggestion.new("Test", "test", {
             from: accounts[0]
         });
         instance = await Suggestion.at(suggestion.address);
