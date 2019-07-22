@@ -1,6 +1,11 @@
-var SimpleStorage = artifacts.require("./SimpleStorage.sol");
-var Suggestion = artifacts.require("./Suggestion.sol");
+const SimpleStorage = artifacts.require("SimpleStorage");
+const TutorialToken = artifacts.require("TutorialToken");
+const ComplexStorage = artifacts.require("ComplexStorage");
+const SuggestionBoard = artifacts.require("SuggestionBoard");
 
 module.exports = function(deployer) {
   deployer.deploy(SimpleStorage);
+  deployer.deploy(TutorialToken);
+  deployer.deploy(ComplexStorage);
+  deployer.deploy(SuggestionBoard);
 };

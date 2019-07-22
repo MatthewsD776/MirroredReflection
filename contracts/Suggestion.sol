@@ -6,53 +6,48 @@ contract Suggestion is Ownable{
     string public name;
     string public suggestion;
     int256 public voteCount;
-    bool public open;
+    bool public isOpen;
+    address payable public creator;
 
     mapping(address => bool) voted;
 
-    event upVoted();
-    event downVoted();
-    event closed();
+    event upVoted(address _suggestion, string _name, int256 _voteCount);
+    event downVoted(address _suggestion, string _name, int256 _voteCount);
+    event closed(address _suggestion, string _name, int256 _finalVoteCount);
 
-    constructor(string memory _name, string memory _suggestion) public {
-        open = true;
+    constructor(string memory _name, string memory _suggestion, address payable _creator) public {
+        isOpen = true;
         name = _name;
         suggestion = _suggestion;
+        creator = _creator;
     }
 
-    modifier canVote() {
-        require(open, "Suggestion has ended");
-        require(!hasVoted(), "Already Voted");
+    modifier canVote(address _voter) {
+        require(isOwner(), "Call not from Suggestion Board");
+        require(isOpen, "Suggestion has ended");
+        require(!hasVoted(_voter), "Already Voted");
         _;
     }
 
-    function isDead() private view returns (bool) {
-        return owner() == address(0);
+    function hasVoted(address _voter) private view returns (bool){
+        return voted[_voter];
     }
 
-    function hasVoted() private view returns (bool){
-        return voted[msg.sender];
-    }
-
-    function upVote() public payable canVote {
-        voted[msg.sender] = true;
+    function upVote(address _voter) public payable canVote(_voter) {
+        voted[_voter] = true;
         voteCount++;
-        emit upVoted();
+        emit upVoted(address(this), name, voteCount);
     }
 
-    function downVote() public canVote {
-        voted[msg.sender] = true;
+    function downVote(address _voter) public canVote(_voter) {
+        voted[_voter] = true;
         voteCount--;
-        emit downVoted();
-    }
-
-    function donationValue() public view returns(uint256) {
-        return address(this).balance;
+        emit downVoted(address(this), name, voteCount);
     }
 
     function close() public onlyOwner {
-        open = false;
-        address payable owner = msg.sender;
-        owner.transfer(address(this).balance);
+        isOpen = false;
+        creator.transfer(address(this).balance);
+        emit closed(address(this), name, voteCount);
     }
 }
