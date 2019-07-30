@@ -5,7 +5,8 @@ import "./Ownable.sol";
 contract Suggestion is Ownable{
     string public name;
     string public suggestion;
-    int256 public voteCount;
+    uint256 public upVotes;
+    uint256 public downVotes;
     bool public isOpen;
     address payable public creator;
 
@@ -29,25 +30,35 @@ contract Suggestion is Ownable{
         _;
     }
 
+    modifier canClose(address _creator){
+        require(isOwner(), "Call not from Suggestion Board");
+        require((creator == _creator), "Not the creator");
+        _;
+    }
+
     function hasVoted(address _voter) private view returns (bool){
         return voted[_voter];
     }
 
     function upVote(address _voter) public payable canVote(_voter) {
         voted[_voter] = true;
-        voteCount++;
-        emit upVoted(address(this), name, voteCount);
+        upVotes++;
+        emit upVoted(address(this), name, voteCount());
     }
 
     function downVote(address _voter) public canVote(_voter) {
         voted[_voter] = true;
-        voteCount--;
-        emit downVoted(address(this), name, voteCount);
+        downVotes++;
+        emit downVoted(address(this), name, voteCount());
     }
 
-    function close() public onlyOwner {
+    function close(address _creator) public canClose(_creator) {
         isOpen = false;
         creator.transfer(address(this).balance);
-        emit closed(address(this), name, voteCount);
+        emit closed(address(this), name, voteCount());
+    }
+
+    function voteCount() public view returns (int256){
+        return int256(upVotes - downVotes);
     }
 }
