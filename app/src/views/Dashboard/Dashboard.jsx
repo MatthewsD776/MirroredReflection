@@ -1,9 +1,9 @@
 import React from "react";
-import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import SideNav, {NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import styled from 'styled-components';
 
 import Etheruem from "../../views/AccountDetalis/Etheruem";
-import AllSuggestions from "../../views/AllSuggestions/AllSuggestions";
+import SuggestionBoard from "../SuggestionBoard/SuggestionBoard";
 
 // Be sure to include styles at some point, probably during your bootstraping
 import style from '@trendmicro/react-sidenav/dist/react-sidenav.css';
@@ -32,11 +32,11 @@ class Dashboard extends React.Component {
         return(
             <div>
                 <SideNav onSelect={(selected) => {
-                    if(selected == "account"){
+                    if(selected === "account"){
                         this.setState({
                             selected: 'account' 
                         });
-                    } else if (selected == "allSuggestions"){
+                    } else if (selected === "allSuggestions"){
                         this.setState({
                             selected: 'allSuggestions'
                         });
@@ -63,8 +63,8 @@ class Dashboard extends React.Component {
                     </SideNav.Nav>
                 </SideNav>
                 <Main>
-                    {(this.state.selected == 'account') ? <Etheruem/> : <div></div>}
-                    {(this.state.selected == 'allSuggestions') ? <AllSuggestions/> : <div></div>}
+                    {(this.state.selected === 'account') ? <Etheruem/> : <div></div>}
+                    {(this.state.selected === 'allSuggestions') ? <SuggestionBoard/> : <div></div>}
                 </Main>
             </div>
     )}

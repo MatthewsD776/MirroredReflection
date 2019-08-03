@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import { DrizzleProvider } from "drizzle-react";
-import { LoadingContainer } from "drizzle-react-components";
-
-import "./App.css";
-
+import {LoadingContainer} from "drizzle-react-components";
 import drizzleOptions from "./drizzleOptions";
-import Dashbboard from "./views/Dashboard/DashboardContrainer";
+import Dashboard from "./views/Dashboard/Dashboard";
 
 class App extends Component {
   render() {
     return (
       <DrizzleProvider options={drizzleOptions}>
         <LoadingContainer>
-          <Dashbboard/>
+          <Dashboard/>
         </LoadingContainer>
       </DrizzleProvider>
     );
