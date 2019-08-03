@@ -10,6 +10,10 @@ contract SuggestionBoard {
     event suggestionDownVoted(address _suggestion, string _name, int256 _voteCount);
     event suggestionClosed(address _suggestion, string _name, int256 _finalVoteCount);
 
+    function allSuggestions() public view returns(Suggestion[] memory){
+        return suggestions;
+    }
+
     function createSuggestion(string memory _name, string memory _desc) public {
         Suggestion suggestion = new Suggestion(_name, _desc, msg.sender);
         suggestions.push(suggestion);

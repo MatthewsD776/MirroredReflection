@@ -7,6 +7,19 @@ import {
 
 import logo from "./logo.png";
 
+function suggestionList(address) {
+
+  return(
+    <div>
+      <ul>
+        {address.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default ({ accounts }) => (
   <div className="App">
     <div>
@@ -20,6 +33,11 @@ export default ({ accounts }) => (
       <AccountData accountIndex={0} units="ether" precision={3} />
     </div>
 
+    <div className="SuggestionBoard">
+      <h2>Suggestion Board</h2>
+      {suggestionList(["test", "test2"])}
+    </div>
+{/*
     <div className="section">
       <h2>SimpleStorage</h2>
       <p>
@@ -83,5 +101,6 @@ export default ({ accounts }) => (
       <strong>Single Device Data: </strong>
       <ContractData contract="ComplexStorage" method="singleDD" />
     </div>
+*/}
   </div>
 );
