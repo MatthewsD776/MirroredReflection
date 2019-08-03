@@ -5,6 +5,9 @@ import {
   ContractForm,
 } from "drizzle-react-components";
 
+import AllSuggestions from "./views/AllSuggestions/AllSuggestions.jsx";
+import Dashboard from "./views/Dashboard/Dashboard.jsx";
+
 import logo from "./logo.png";
 
 function suggestionList(address) {
@@ -22,6 +25,7 @@ function suggestionList(address) {
 
 export default ({ accounts }) => (
   <div className="App">
+
     <div>
       <img src={logo} alt="drizzle-logo" />
       <h1>Drizzle Examples</h1>
@@ -37,6 +41,9 @@ export default ({ accounts }) => (
       <h2>Suggestion Board</h2>
       {suggestionList(["test", "test2"])}
     </div>
+
+    <AllSuggestions/>
+
 {/*
     <div className="section">
       <h2>SimpleStorage</h2>

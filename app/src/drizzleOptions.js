@@ -10,7 +10,6 @@ const options = {
   },
   contracts: [SuggestionBoard],
   events: {
-    SimpleStorage: ["StorageSet"],
     SuggestionBoard: ["suggestionCreated"],
   },
   polls: {
