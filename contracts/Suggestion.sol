@@ -1,6 +1,6 @@
 pragma solidity ^0.5.8;
 
-import "./Ownable.sol";
+import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract Suggestion is Ownable{
     string public name;
@@ -40,19 +40,19 @@ contract Suggestion is Ownable{
         return voted[_voter];
     }
 
-    function upVote(address _voter) public payable canVote(_voter) {
+    function upVote(address _voter) public payable onlyOwner() canVote(_voter){
         voted[_voter] = true;
         upVotes++;
         emit upVoted(address(this), name, voteCount());
     }
 
-    function downVote(address _voter) public canVote(_voter) {
+    function downVote(address _voter) public onlyOwner() canVote(_voter) {
         voted[_voter] = true;
         downVotes++;
         emit downVoted(address(this), name, voteCount());
     }
 
-    function close(address _creator) public canClose(_creator) {
+    function close(address _creator) public onlyOwner() canClose(_creator) {
         isOpen = false;
         creator.transfer(address(this).balance);
         emit closed(address(this), name, voteCount());

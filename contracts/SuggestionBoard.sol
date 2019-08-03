@@ -5,21 +5,21 @@ import "./Suggestion.sol";
 contract SuggestionBoard {
     Suggestion[] suggestions;
 
-    event suggestionCreated();
-    event suggestionUpvoted(address _suggestion, string _name, int256 _voteCount);
+    event suggestionCreated(address _suggestion, string _name, string _desc);
+    event suggestionUpVoted(address _suggestion, string _name, int256 _voteCount);
     event suggestionDownVoted(address _suggestion, string _name, int256 _voteCount);
     event suggestionClosed(address _suggestion, string _name, int256 _finalVoteCount);
 
     function createSuggestion(string memory _name, string memory _desc) public {
         Suggestion suggestion = new Suggestion(_name, _desc, msg.sender);
         suggestions.push(suggestion);
-        emit suggestionCreated();
+        emit suggestionCreated(address(suggestion), suggestion.name(), suggestion.suggestion());
     }
 
-    function upVote(address _suggestion) public {
+    function upVote(address _suggestion) public payable{
         Suggestion suggestion = Suggestion(_suggestion);
-        suggestion.upVote(msg.sender);
-        emit suggestionUpvoted(_suggestion, suggestion.name(), suggestion.voteCount());
+        suggestion.upVote.value(msg.value)(msg.sender);
+        emit suggestionUpVoted(_suggestion, suggestion.name(), suggestion.voteCount());
     }
 
     function downVote(address _suggestion) public {
