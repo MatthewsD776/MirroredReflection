@@ -1,5 +1,5 @@
 import { drizzleConnect } from "drizzle-react";
-import AllSuggestions from "./AllSuggestions";
+import AllSuggestions from "./Dashboard";
 
 const mapStateToProps = state => {
   return {

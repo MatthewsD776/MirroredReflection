@@ -5,7 +5,7 @@ import { LoadingContainer } from "drizzle-react-components";
 import "./App.css";
 
 import drizzleOptions from "./drizzleOptions";
-import Dashbboard from "./views/Dashboard/Dashboard.jsx";
+import Dashbboard from "./views/Dashboard/DashboardContrainer";
 
 class App extends Component {
   render() {

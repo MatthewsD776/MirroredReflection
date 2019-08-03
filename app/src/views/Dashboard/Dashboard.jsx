@@ -3,10 +3,13 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 import styled from 'styled-components';
 
 import Etheruem from "../../views/AccountDetalis/Etheruem";
-import AllSuggestions from "../../views/AllSuggestions/AllSuggestionsContainer";
+import AllSuggestions from "../../views/AllSuggestions/AllSuggestions";
 
 // Be sure to include styles at some point, probably during your bootstraping
 import style from '@trendmicro/react-sidenav/dist/react-sidenav.css';
+
+import AccountBox from "@material-ui/icons/AccountBoxOutlined";
+import Suggestion from "@material-ui/icons/SpeakerNotes";
 
 const Main = styled.main`
     position: relative;
@@ -43,7 +46,7 @@ class Dashboard extends React.Component {
                     <SideNav.Nav defaultSelected="account">
                         <NavItem eventKey="account">
                             <NavIcon>
-                                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+                                <AccountBox/>
                             </NavIcon>
                             <NavText>
                                 Account
@@ -51,7 +54,7 @@ class Dashboard extends React.Component {
                         </NavItem>
                         <NavItem eventKey="allSuggestions">
                             <NavIcon>
-                                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+                                <Suggestion/>
                             </NavIcon>
                             <NavText>
                                 All Suggestions
