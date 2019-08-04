@@ -3,6 +3,8 @@ import {drizzleConnect} from 'drizzle-react';
 import PropTypes from "prop-types";
 import getWeb3 from "@drizzle-utils/get-web3";
 import getContract from "truffle-contract";
+import Suggestion from "../../views/Suggestion/Suggestion";
+import CardColumns from "react-bootstrap/CardColumns";
 
 const mapStateToProps = state => ({state});
 
@@ -17,7 +19,6 @@ class SuggestionBoard extends React.Component{
     }
 
     async updateBoardContractDetails() {
-        //const getContract = require('truffle-contract');
         const contractJSON = require('../../contracts/SuggestionBoard.json');
 
         const contract = getContract(contractJSON);
@@ -37,15 +38,15 @@ class SuggestionBoard extends React.Component{
     render() {
         this.updateBoardContractDetails();
         const items = this.state.suggestions.map((item, index) => (
-            <li key={index}>{item}</li>
+            <Suggestion address={item}></Suggestion>
         ));
 
 
         return(<div>
             <h2>Board Name : {this.state.boardName}</h2>
-            <ul>
+            <CardColumns>
                 {items}
-            </ul>
+            </CardColumns>
         </div>)
     }
 
