@@ -14,7 +14,14 @@ class SuggestionBoard extends React.Component{
     constructor(props, context) {
         super(props);
         this.state = {
-            address: props.address
+            address: props.address,
+            name: '',
+            description: '',
+            upVotes: 0,
+            downVotes: 0,
+            totalVotes: 0,
+            isOpen: null,
+            creator: null
         };
         //console.log(this.state.address);
         this.updateSuggestionData();
@@ -34,6 +41,10 @@ class SuggestionBoard extends React.Component{
         const instance = await contract.at(this.state.address);
 
         const name = await instance.name();
+        this.setState({
+            name: name
+        });
+
         const description = await instance.suggestion();
         const upVotes = await instance.upVotes();
         const downVotes = await instance.downVotes();
@@ -41,7 +52,6 @@ class SuggestionBoard extends React.Component{
         const creator = await instance.creator();
 
         this.setState({
-            name: name,
             description: description,
             upVotes: upVotes,
             downVotes: downVotes,
@@ -53,6 +63,23 @@ class SuggestionBoard extends React.Component{
 
     render() {
         this.updateSuggestionData();
+
+        if(this.state.name === ''){
+            return (
+                <Card className="text-center">
+                    <Card.Header>Loading</Card.Header>
+                </Card>
+            );
+        } else if (this.state.description === ''){
+            return (
+                <Card className="text-center">
+                    <Card.Header>Loading [{this.state.name}]</Card.Header>
+                </Card>
+            );
+        }
+
+
+
         return(
             <Card className="text-center">
                 <Card.Header>Suggestion</Card.Header>

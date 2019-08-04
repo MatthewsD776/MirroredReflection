@@ -1,6 +1,7 @@
 import React from "react";
 import SideNav, {NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import styled from 'styled-components';
+import ScrollArea from 'react-scrollbar';
 
 import Etheruem from "../../views/AccountDetalis/Etheruem";
 import SuggestionBoard from "../SuggestionBoard/SuggestionBoard";
@@ -63,8 +64,15 @@ class Dashboard extends React.Component {
                     </SideNav.Nav>
                 </SideNav>
                 <Main>
-                    {(this.state.selected === 'account') ? <Etheruem/> : <div></div>}
-                    {(this.state.selected === 'allSuggestions') ? <SuggestionBoard/> : <div></div>}
+                    <ScrollArea
+                    speed={0.8}
+                    className="area"
+                    contentClassName="content"
+                    horizontal={false}
+                    >
+                        {(this.state.selected === 'account') ? <Etheruem/> : <div></div>}
+                        {(this.state.selected === 'allSuggestions') ? <SuggestionBoard/> : <div></div>}
+                    </ScrollArea>
                 </Main>
             </div>
     )}
