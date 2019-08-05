@@ -5,7 +5,10 @@ import getWeb3 from "@drizzle-utils/get-web3";
 import getContract from "truffle-contract";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Col from 'react-bootstrap/Col';
 import contractJSON from "../../contracts//Suggestion.json";
+import Web3 from "web3";
 
 const mapStateToProps = state => ({state});
 
@@ -17,9 +20,9 @@ class SuggestionBoard extends React.Component{
             address: props.address,
             name: '',
             description: '',
-            upVotes: 0,
-            downVotes: 0,
-            totalVotes: 0,
+            upVotes: '',
+            downVotes: '',
+            totalVotes: '',
             isOpen: null,
             creator: null
         };
@@ -32,10 +35,10 @@ class SuggestionBoard extends React.Component{
     }
 
     async updateSuggestionData() {
-        //const contractJSON = require('../../contracts/Suggestion.json');
+        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+        const BN = web3.utils.BN;
 
         const contract = getContract(contractJSON);
-        const web3 = await getWeb3();
         contract.setProvider(web3.currentProvider);
 
         const instance = await contract.at(this.state.address);
@@ -46,8 +49,9 @@ class SuggestionBoard extends React.Component{
         });
 
         const description = await instance.suggestion();
-        const upVotes = await instance.upVotes();
-        const downVotes = await instance.downVotes();
+        const upVotes = new BN(await instance.upVotes()).toString();
+        const downVotes = new BN(await instance.downVotes()).toString;
+        //const totalVotes =  await upVotes.add(downVotes).toString();
         const open = await instance.isOpen();
         const creator = await instance.creator();
 
@@ -55,7 +59,7 @@ class SuggestionBoard extends React.Component{
             description: description,
             upVotes: upVotes,
             downVotes: downVotes,
-            totalVotes: (upVotes-downVotes),
+            totalVotes: 'total',
             isOpen: open,
             creator: creator
         });
@@ -94,7 +98,7 @@ class SuggestionBoard extends React.Component{
                     <Button variant="primary">Go somewhere</Button>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    2 days ago
+                    {this.state.upVotes}
                 </Card.Footer>
             </Card>
         );
