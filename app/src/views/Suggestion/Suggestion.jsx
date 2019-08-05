@@ -43,25 +43,16 @@ class SuggestionBoard extends React.Component{
 
         const instance = await contract.at(this.state.address);
 
-        const name = await instance.name();
-        this.setState({
-            name: name
-        });
-
-        const description = await instance.suggestion();
-        const upVotes = new BN(await instance.upVotes()).toString();
-        const downVotes = new BN(await instance.downVotes()).toString;
-        //const totalVotes =  await upVotes.add(downVotes).toString();
-        const open = await instance.isOpen();
-        const creator = await instance.creator();
+        const allData = await instance.getAllData();
 
         this.setState({
-            description: description,
-            upVotes: upVotes,
-            downVotes: downVotes,
-            totalVotes: 'total',
-            isOpen: open,
-            creator: creator
+            name: allData._name,
+            description: allData._desc,
+            upVotes: new BN(allData._up).toString(),
+            downVotes: new BN(allData._down).toString(),
+            totalVotes: new BN(allData._total).toString(),
+            isOpen: allData._open,
+            creator: allData._creator
         });
     }
 
@@ -74,16 +65,8 @@ class SuggestionBoard extends React.Component{
                     <Card.Header>Loading</Card.Header>
                 </Card>
             );
-        } else if (this.state.description === ''){
-            return (
-                <Card className="text-center">
-                    <Card.Header>Loading [{this.state.name}]</Card.Header>
-                </Card>
-            );
         }
-
-
-
+        
         return(
             <Card className="text-center">
                 <Card.Header>Suggestion</Card.Header>
@@ -98,7 +81,7 @@ class SuggestionBoard extends React.Component{
                     <Button variant="primary">Go somewhere</Button>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    {this.state.upVotes}
+                    {this.state.upVotes} : {this.state.totalVotes} : {this.state.downVotes}
                 </Card.Footer>
             </Card>
         );

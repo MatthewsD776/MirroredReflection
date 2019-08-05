@@ -12,10 +12,6 @@ contract Suggestion is Ownable{
 
     mapping(address => bool) voted;
 
-    event upVoted(address _suggestion, string _name, int256 _voteCount);
-    event downVoted(address _suggestion, string _name, int256 _voteCount);
-    event closed(address _suggestion, string _name, int256 _finalVoteCount);
-
     constructor(string memory _name, string memory _suggestion, address payable _creator) public {
         isOpen = true;
         name = _name;
@@ -43,22 +39,25 @@ contract Suggestion is Ownable{
     function upVote(address _voter) public payable onlyOwner() canVote(_voter){
         voted[_voter] = true;
         upVotes++;
-        emit upVoted(address(this), name, voteCount());
     }
 
     function downVote(address _voter) public onlyOwner() canVote(_voter) {
         voted[_voter] = true;
         downVotes++;
-        emit downVoted(address(this), name, voteCount());
     }
 
     function close(address _creator) public onlyOwner() canClose(_creator) {
         isOpen = false;
         creator.transfer(address(this).balance);
-        emit closed(address(this), name, voteCount());
     }
 
-    function voteCount() public view returns (int256){
+    function getAllData() public view returns(
+        string memory _name, string memory _desc, uint256 _up, uint256 _down, int256 _total, address _creator, bool _open
+    ){
+        return(name, suggestion, upVotes, downVotes, totalVotes(), creator, isOpen);
+    }
+
+    function totalVotes() public view returns (int256){
         return int256(upVotes - downVotes);
     }
 }

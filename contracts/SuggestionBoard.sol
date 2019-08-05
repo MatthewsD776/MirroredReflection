@@ -32,19 +32,19 @@ contract SuggestionBoard {
     function upVote(address _suggestion) public payable{
         Suggestion suggestion = Suggestion(_suggestion);
         suggestion.upVote.value(msg.value)(msg.sender);
-        emit suggestionUpVoted(_suggestion, suggestion.name(), suggestion.voteCount());
+        emit suggestionUpVoted(_suggestion, suggestion.name(), suggestion.totalVotes());
     }
 
     function downVote(address _suggestion) public {
         Suggestion suggestion = Suggestion(_suggestion);
         suggestion.downVote(msg.sender);
-        emit suggestionDownVoted(_suggestion, suggestion.name(), suggestion.voteCount());
+        emit suggestionDownVoted(_suggestion, suggestion.name(), suggestion.totalVotes());
     }
 
     function close(address _suggestion) public {
         Suggestion suggestion = Suggestion(_suggestion);
         suggestion.close(msg.sender);
-        emit suggestionClosed(_suggestion, suggestion.name(), suggestion.voteCount());
+        emit suggestionClosed(_suggestion, suggestion.name(), suggestion.totalVotes());
     }
 
 }
