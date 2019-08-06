@@ -1,14 +1,12 @@
 import React from 'react';
 import {drizzleConnect} from 'drizzle-react';
 import PropTypes from "prop-types";
-import getWeb3 from "@drizzle-utils/get-web3";
 import getContract from "truffle-contract";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Col from 'react-bootstrap/Col';
 import contractJSON from "../../contracts//Suggestion.json";
 import Web3 from "web3";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 const mapStateToProps = state => ({state});
 
@@ -74,14 +72,18 @@ class SuggestionBoard extends React.Component{
                     <Card.Title>{this.state.name}</Card.Title>
                     <Card.Text>
                         {this.state.description}
-                        <footer className="blockquote-footer">
-                            <cite title="address">{this.state.creator}</cite>
-                        </footer>
                     </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <footer className="blockquote-footer">
+                        <cite title="address">{this.state.creator}</cite>
+                    </footer>
+                    <ButtonGroup size="sm" className="mt-3">
+                        <Button variant="success">{this.state.upVotes}</Button>
+                        <Button variant="secondary" disabled>{this.state.totalVotes}</Button>
+                        <Button variant="danger">{this.state.downVotes}</Button>
+                    </ButtonGroup>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    {this.state.upVotes} : {this.state.totalVotes} : {this.state.downVotes}
+                    
                 </Card.Footer>
             </Card>
         );

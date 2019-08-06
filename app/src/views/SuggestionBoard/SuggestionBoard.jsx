@@ -31,14 +31,15 @@ class SuggestionBoard extends React.Component{
         
         this.setState({
             boardName: name,
-            suggestions: suggestions
+            suggestions: suggestions,
+            board: instance
         });
     }
 
     render() {
         this.updateBoardContractDetails();
         const items = this.state.suggestions.map((item, index) => (
-            <Suggestion address={item}></Suggestion>
+            <Suggestion address={item} board={this.state.board}></Suggestion>
         ));
 
 
