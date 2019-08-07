@@ -1,0 +1,11 @@
+# [START runtime]
+runtime: nodejs
+env: flex
+# [END runtime]
+
+# [START handlers]
+handlers:
+  - url: /
+    static_files: public/index.html
+    upload: public/index.html
+  # [END handlers]
