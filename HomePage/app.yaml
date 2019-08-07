@@ -1,5 +1,6 @@
+
 # [START runtime]
-service: suggestionboard
+service: default
 runtime: nodejs
 env: flex
 # [END runtime]

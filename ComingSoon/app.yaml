@@ -1,0 +1,6 @@
+
+# [START runtime]
+service: comingsoon
+runtime: nodejs
+env: flex
+# [END runtime]
