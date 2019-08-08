@@ -1,7 +1,0 @@
-dispatch:
-  # Default service serves simple hostname request.
-  - url: "darrenmatthews.dev/"
-    service: default
-
-  - url: "boards.darrenmatthews.dev/"
-    service: comingsoon
