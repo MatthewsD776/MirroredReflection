@@ -1,24 +1,29 @@
 import React from 'react';
-import './App.css';
-import SingleLineGridList from './Components/SingleLineImages';
-import Arrow from "@material-ui/icons/ArrowDownward";
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import Blog from './Components/Blog/Blog';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h2>Coming Soon to a Screen near you!</h2>
-          <p>Enjoy some cool pictures!</p>
-          <Arrow/>
-        </header>
-        <div className="App-intro">
-          <SingleLineGridList/>
-        </div>
-      </div>
-    );
-  }
-
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'. Built with '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Material-UI.
+      </Link>
+    </Typography>
+  );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Container>
+      <Blog/>
+    </Container>
+  );
+}
