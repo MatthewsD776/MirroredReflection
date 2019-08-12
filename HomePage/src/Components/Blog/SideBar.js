@@ -15,22 +15,24 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const archives = [
-    'March 2020',
-    'February 2020',
-    'January 2020',
-    'December 2019',
-    'November 2019',
-    'October 2019',
-    'September 2019',
-    'August 2019',
-    'July 2019',
-    'June 2019',
-    'May 2019',
-    'April 2019',
-];
-  
-const social = ['GitHub', 'Twitter', 'Facebook'];
+const socials = [
+    {
+        name: 'Github',
+        link: 'https://github.com/MatthewsD776'
+    },
+    {
+        name: 'Facebook',
+        link: 'https://www.facebook.com/darren.matthews.733'
+    },
+    {
+        name: 'Instagram',
+        link: 'https://www.instagram.com/theonetheonlyrazzledazzle/?hl=en'
+    },
+    {
+        name: 'LinkedIn',
+        link: 'https://www.linkedin.com/in/darren-matthews776/'
+    }
+]
 
 export default function SideBar() {
     const classes = useStyles();
@@ -42,24 +44,15 @@ export default function SideBar() {
                     About
                 </Typography>
                 <Typography>
-                    Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit
-                    amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
+                    This is all about showing off my skills, ideas, thoughts and opinions on anything I find interesting
                 </Typography>
             </Paper>
             <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-                Archives
-            </Typography>
-            {archives.map(archive => (
-                <Link display="block" variant="body1" href="#" key={archive}>
-                {archive}
-                </Link>
-            ))}
-            <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
                 Social
             </Typography>
-            {social.map(network => (
-                <Link display="block" variant="body1" href="#" key={network}>
-                {network}
+            {socials.map(network => (
+                <Link display="block" variant="body1" href={network.link} key={network.name}>
+                {network.name}
                 </Link>
             ))}
         </Grid>

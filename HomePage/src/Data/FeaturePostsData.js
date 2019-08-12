@@ -1,16 +1,16 @@
 const FeaturedPostsData = [
     {
-      title: 'Featured post',
-      date: 'Nov 12',
+      title: 'Instagram Feed',
+      date: 'Aug 12',
       description:
-        'This is a wider card with supporting text below as a natural lead-in to additional content.',
+        'My Instagram feed will be the first addition to this site.'
     },
     {
-      title: 'Post title',
-      date: 'Nov 11',
+      title: 'Blockchain Project',
+      date: 'Aug 13',
       description:
-        'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    },
+        'Building an Ideas Platform. Will allow for open source feedback and contributions as well as market research.'
+    }
 ];
 
 export default FeaturedPostsData;

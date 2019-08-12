@@ -24,7 +24,7 @@ export default function Blog() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" id="blog">
         <Toolbar/>
 
         <SiteNav/>
@@ -44,10 +44,8 @@ export default function Blog() {
           </Grid>
 
         </main>
-
+        <Footer/>
       </Container>
-
-      <Footer/>
 
     </React.Fragment>
   );
